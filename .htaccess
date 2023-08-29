@@ -15,7 +15,8 @@ RewriteRule ^udelezenecEdina/(.+)/?$ udelezenecEdina.php?zapOseba=$1 [NC,L]
 RewriteRule ^prometnaDatum/?$ prometnaDatum.php [NC,L]
 RewriteRule ^prometnaDatum/(.+)/?$ prometnaDatum.php?zapOseba=$1 [NC,L]
 
-
+RewriteRule ^pov/?$ pov.php [NC,L]
+RewriteRule ^pov/(.+)/?$ pov.php?zapOseba=$1 [NC,L]
 
 # Onemogočimo direkten dostop do orodja.php
 <Files orodja.php>

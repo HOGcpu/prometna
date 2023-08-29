@@ -18,6 +18,8 @@ function podatkiNesrece(){
 	var vzdevek=document.getElementById("obrazec")['stevilka'].value;
 	
 	document.getElementById('posodobitev').style.display="none";
+	document.getElementById('obrazecIzbris').style.display="none";
+	document.getElementById('obrazecNova').style.display="none";
 	document.getElementById('odgovor').innerHTML="";
 	
 	// Funkcija je namenjena prilagoditvi vsebine strani glede na to, ali je uporabnik ze prijavljen ali se ne.
@@ -128,8 +130,12 @@ function dodajNovo()
 		{
 			var jsonResponse = JSON.parse(this.responseText);
 			var textResponse = "";
-			for (let i = 0; i < jsonResponse["error_data"].length; i++) {
-				textResponse += "<br>" + jsonResponse["error_data"][i];
+			if(jsonResponse["error_data"].length > 1){
+				for (let i = 0; i < jsonResponse["error_data"].length; i++) {
+					textResponse +=  "<br/>" + jsonResponse["error_data"][i] ;
+			}}
+			else{
+				textResponse += jsonResponse["error_data"];
 			}
 			document.getElementById("odgovor").innerHTML="Dodajanje ni uspelo: "+jsonResponse["error_message"]+textResponse;
 		}
@@ -151,6 +157,7 @@ function izbrisiForma()
 
 function checkUser(zetonZaPreverbo)
 {
+	document.getElementById('obrazecIzbris').style.display="none";
 	var dataToSend = "tokenTosend="+zetonZaPreverbo;
 	
 	var xmlhttp = new XMLHttpRequest();	
@@ -211,9 +218,9 @@ function odstraniNesreco()
 			var jsonResponse = JSON.parse(this.responseText);
 			var textResponse = "";
 			for (let i = 0; i < jsonResponse["error_data"].length; i++) {
-				textResponse += "<br>" + jsonResponse["error_data"][i];
+				textResponse += " " + jsonResponse["error_data"][i];
 			}
-			document.getElementById("odgovor").innerHTML="Odstranjevanje ni uspelo: "+jsonResponse["error_message"]+textResponse;
+			document.getElementById("odgovor").innerHTML="Odstranjevanje ni uspelo: "+jsonResponse["error_message"]+jsonResponse["error_data"];
 		}
 	};
 	 
@@ -224,6 +231,8 @@ function odstraniNesreco()
 
 function checkUserDelete(zetonZaPreverbo)
 {
+	
+	document.getElementById('obrazecNova').style.display="none";
 	var dataToSend = "tokenTosend="+zetonZaPreverbo;
 	
 	var xmlhttp = new XMLHttpRequest();	

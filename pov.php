@@ -32,23 +32,29 @@ function povFunkcija()
     $odgovor =array();
 
     if(isset($podatki["datum1"], $podatki["datum2"], 
-	$podatki["steviloOffset"])){
+	$podatki["steviloOffset"], $podatki["vrednostAlkotesta"])){
 		
 		$datum1 = mysqli_escape_string($zbirka, $podatki["datum1"]);
 		$datum2 = mysqli_escape_string($zbirka, $podatki["datum2"]);
 
 		$steviloOffset = mysqli_escape_string($zbirka, $podatki["steviloOffset"]);
 		
-		$poizvedba = "SELECT zapStevilka, klasifikacija, upravnaEnota, datum FROM prometna
-			where datum BETWEEN '$datum1' and '$datum2' 
-			or datum BETWEEN '$datum2' and '$datum1' 
-			order by datum
-			Limit 10 offset '$steviloOffset';";
+		$vrednostAlkotesta = mysqli_escape_string($zbirka, $podatki["vrednostAlkotesta"]);
+		
+		$poizvedba = "SELECT prometna.vzrokNesrece, prometna.tipNesrece, prometna.datum, prometna.upravnaEnota, 
+		udelezenec.zapStevilka, udelezenec.starost, udelezenec.vrstaUdelezenca, 
+		udelezenec.vozniskiStazVLetih, udelezenec.vrednostAlkotesta 
+		FROM udelezenec inner join prometna ON udelezenec.zapStevilka = prometna.zapStevilka where 
+		(datum BETWEEN '$datum1' and '$datum2' 
+		or datum BETWEEN '$datum2' and '$datum1') 
+		and vrednostAlkotesta >= '$vrednostAlkotesta' order by datum Limit 10 offset $steviloOffset;";
 			
 		
-		$poizvedbaZapreverbo = "SELECT count(datum) FROM prometna
-			where datum BETWEEN '$datum1' and '$datum2'
-			or datum BETWEEN '$datum2' and '$datum1'";
+		$poizvedbaZapreverbo = "SELECT count(prometna.datum) as stev
+		FROM udelezenec inner join prometna ON udelezenec.zapStevilka = prometna.zapStevilka where 
+		(datum BETWEEN '$datum1' and '$datum2' 
+		or datum BETWEEN '$datum2' and '$datum1') 
+		and vrednostAlkotesta >= '$vrednostAlkotesta';";
 		
 		
 		
@@ -56,12 +62,14 @@ function povFunkcija()
 		{
 			//$rezultat=mysqli_query($zbirka, $poizvedba2);
 			if(is_numeric($steviloOffset)){
-				$poizvedba="SELECT zapStevilka, klasifikacija, upravnaEnota, datum 
-				FROM prometna WHERE datum BETWEEN '$datum1' and '$datum2' 
-				or datum BETWEEN '$datum2' and '$datum1' 
-				order by datum
-				LIMIT 10
-				OFFSET $steviloOffset";
+				
+				$poizvedba = "SELECT prometna.vzrokNesrece, prometna.tipNesrece, prometna.datum, prometna.upravnaEnota, 
+								udelezenec.zapStevilka, udelezenec.starost, udelezenec.vrstaUdelezenca, 
+								udelezenec.vozniskiStazVLetih, udelezenec.vrednostAlkotesta 
+								FROM udelezenec inner join prometna ON udelezenec.zapStevilka = prometna.zapStevilka where 
+								(datum BETWEEN '$datum1' and '$datum2' 
+								or datum BETWEEN '$datum2' and '$datum1') 
+								and vrednostAlkotesta >= '$vrednostAlkotesta' order by datum Limit 10 offset $steviloOffset;";
 	
 				$rezultat = mysqli_query($zbirka, $poizvedba);
 			

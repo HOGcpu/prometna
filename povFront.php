@@ -18,10 +18,11 @@
 				<tr>
 					<th>Vzrok Nesrece</th>
 					<th>Tip nesrece</th>
+					<th>Datum</th>
+					<th>Upravna Enota</th>
 					<th>Zaporedna stevilka nesrece</th>
 					<th>Starost</th>
 					<th>Vrsta udeleženca</th>
-					
 					<th>Vozniški staž v letih</th>
 					<th>vrednost alkotesta</th>
 				</tr>
@@ -36,12 +37,10 @@
 				<input type="date" name="datum2" value="" required/><br/>
 				
 				Vrednost alkotesta nad:
-				<input type="number" value="vrednostAlkotesta" min="0" value="0" step = ".01"/><br>
+				<input type="number" id = "vrednostAlkotesta"  name="vrednostAlkotesta" min="0" value="0" step = ".01"/><br>
 				
-				<input type="submit" value="Pridobi udeležence." /><br>
 		
-				
-				Prikaži prvih 10 udeležencev (offset) / ali pusti prazno za prikaz števila povzročiteljev:
+				Prikaži prvih 10 povzročiteljev (offset) / ali pusti prazno za prikaz števila povzročiteljev:
 				<input type="number" name="steviloOffset" value=""/><br/>
 				<input type="submit" value="Pridobi udeležence." /><br>
 				

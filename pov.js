@@ -53,7 +53,7 @@ function pridobiUdelezence(){
 		else if(this.readyState == 4 && this.status == 201)
 		{
 			var odgovorJSON = JSON.parse(this.responseText);
-			document.getElementById("odgovor").innerHTML="Med datuma se je zgodilo toliko nesrec: "+odgovorJSON["count(datum)"];
+			document.getElementById("odgovor").innerHTML="Med datuma je bilo toliko povzročiteljev nesreč: "+odgovorJSON["stev"] + ' ; z vrednostjo alkohola nad ' +document.getElementById("vrednostAlkotesta").value;
 		}
 		else if(this.readyState == 4 && this.status != 200)
 		{
@@ -61,7 +61,7 @@ function pridobiUdelezence(){
 		}
 	};
 
-	xmlhttp.open("POST", "prometnaDatum", true);
+	xmlhttp.open("POST", "pov", true);
 	xmlhttp.send(JSONdata);
 }
 

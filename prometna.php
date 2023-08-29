@@ -45,6 +45,7 @@ switch($_SERVER["REQUEST_METHOD"])		// Glede na HTTP metodo v zahtevi izberemo u
 		else
 		{
 			http_response_code(400);     // bad request
+			pripravi_odgovor_napaka("Nesreca s to stevilko ne obstaja: ", $_GET["zapStevilka"]);
 		}
 		break;
 	
@@ -163,6 +164,10 @@ function dodaj_nesreco()
 		while($row = mysqli_fetch_row($resultTip)){
 			array_push($uniqueTip, $row[0]);
 		}
+		
+		$maxStevilka = "SELECT MAX(zapStevilka) FROM prometna";
+		$resultMaxStevilka = mysqli_query($zbirka, $maxStevilka);
+		$rowMax = mysqli_fetch_row($resultMaxStevilka);
 
 		if(!nesreca_obstaja($zapStevilka))
 		{
@@ -228,14 +233,14 @@ function dodaj_nesreco()
 				
 				if($DEBUG)
 				{
-					pripravi_odgovor_napaka(mysqli_error($zbirka));
+					pripravi_odgovor_napaka(mysqli_error($zbirka), " ");
 				}
 			}
 		}
 		else
 		{
 			http_response_code(409);
-			pripravi_odgovor_napaka("Nesreca s taksnim id-jem (zaporedno številko) že obstaja : ", $zapStevilka);
+			pripravi_odgovor_napaka("Nesreca s taksnim id-jem (zaporedno številko) že obstaja. Maksimalna številka v bazi je trenutno : ", $rowMax[0]);
 		}
 	}
 	else
@@ -355,7 +360,7 @@ function izbrisi_nesreco($zapStevilka)
 	{
 		
 		http_response_code(400); //bad request
-		pripravi_odgovor_napaka("Nesreca s to stevilko ne obstaja:", $zapStevilkaa);
+		pripravi_odgovor_napaka("Nesreca s to stevilko ne obstaja: ", $zapStevilkaa);
 	}			
 }
 

@@ -68,19 +68,20 @@
 				<input type="submit" value="Posodobi" />
 			</form>
 			<br/>
-			<div id="odgovor"></div>
 			
 			<br/>
 			<form id="izbrisiNeko" style="display: inline">
 			<button type="button" onclick="izbrisiForma(); return false;">Izbrisi nesreco</button>
-			</form><br/>
+			</form>
+			
+			<br/>
 			
 			<form id="obrazecIzbris" onsubmit="izbrisiAdmin(); return false;" style="display: none">
 				Zaporedna številka nesreče za izbris:
 				<input type="number" name="zapStevilka" value="" required/><br/>
 				<input type="submit" value="Izbriši." />
 			</form>
-			<br/>
+			<br/><div id="odgovor2"></div><br/>
 			
 			<button type="button" onclick="dodajNovoForma(); return false;">Dodaj novo nesreco</button>
 			<br/>
@@ -117,7 +118,7 @@
 				<input type="submit" value="Dodaj" />
 			</form>
 			
-			<br/><br/>
+			<br/><div class="ex3" id="odgovor"></div><br/>
 			
 		</div>
 	</body>
