@@ -1,0 +1,24 @@
+RewriteEngine On 				# Vklopi 'rewriting engine'
+
+RewriteRule ^prometna/?$ prometna.php [NC,L]						# če gre za zahtevek na relativni URL '/prometna' ga spremeni v 'prometna.php'
+RewriteRule ^prometna/(.+)/?$ prometna.php?zapStevilka=$1 [NC,L] 	# preslika vzorec 'prometna/xxxx' v 'prometna.php?vzdevek=xxxx'
+
+RewriteRule ^udelezenec/?$ udelezenec.php [NC,L]
+RewriteRule ^udelezenec/(.+)/?$ udelezenec.php?zapStevilka=$1 [NC,L]
+
+RewriteRule ^udelezenec_statistika/?$ udelezenec_statistika.php [NC,L]
+RewriteRule ^udelezenec_statistika/(.+)/?$ udelezenec_statistika.php?zapStevilka=$1 [NC,L]
+
+RewriteRule ^udelezenecEdina/?$ udelezenecEdina.php [NC,L]
+RewriteRule ^udelezenecEdina/(.+)/?$ udelezenecEdina.php?zapOseba=$1 [NC,L]
+
+RewriteRule ^prometnaDatum/?$ prometnaDatum.php [NC,L]
+RewriteRule ^prometnaDatum/(.+)/?$ prometnaDatum.php?zapOseba=$1 [NC,L]
+
+
+
+# Onemogočimo direkten dostop do orodja.php
+<Files orodja.php>
+Order allow,deny
+Deny from all
+</Files>

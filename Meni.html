@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="stilP.css" /> 
+		<title>Prikaz podatkov</title>
+		<script src="pik.js"></script>
+		<script type="text/javascript">
+			
+			
+			function odjava() {
+				setCookie('token', '', -1)
+			}
+			
+			// Funkcija je namenjena prilagoditvi vsebine strani glede na to, ali je uporabnik ze prijavljen ali se ne.
+			function oPrijavi() {
+				var zeton = getCookie('token');
+				if(zeton != null && zeton != ""){
+					
+					document.getElementById("ooop").style.display = "inline";
+					
+				}
+				else{
+					window.location.replace("login.html")
+				}
+			}
+			
+			function myFunction() {
+				var txt;
+				if (confirm("Ali se želite odjaviti iz aplikacije?")) {
+					txt = "ja";
+					odjava();
+					oPrijavi();
+				} else {
+					txt = "ne";
+				}
+			}
+			
+			// Funkcija je namenjena prilagoditvi vsebine strani glede na to, ali je uporabnik ze prijavljen ali se ne.
+			function oPrijaviPosameznaStran() {
+				var zeton = getCookie('token');
+				if(zeton != null && zeton != ""){
+					
+					document.getElementById("obrazec").style.display = "inline";
+					
+				}
+			}
+		</script>
+	</head>
+	<body onload="oPrijavi()">
+		<!-- <div class="clearFloat"></div> -->
+		<div id="ooop"; style="display: none" >
+			<center><h1 id="title">Domača stran</h1></center>
+			<a href="prometnaFront.php">Prometnih nesreče</a> 
+			<a href="udelezenciFront.php">Udeleženci</a> 
+			<a href="datumFront.php">Prometne nesreče glede na datum</a> 
+			<a href="povFront.php">Povzročitelji nesreč</a> 
+			<button class="popup"
+					onclick="myFunction()">Odjava iz aplikacije</button>
+		</div>
+		<!-- <hr/> -->
+		<div id="pripravaStran"></div>
+	</body>
+	</style>
+
+
+	
+	
+</html>

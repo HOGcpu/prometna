@@ -1,0 +1,43 @@
+body {
+	background-color: lightgrey;
+	font-family:"Calibri";
+}
+.center{
+	margin-left:auto;
+	margin-right:auto;
+	width:60%;
+}
+.float{
+	float:left;
+	margin-right:10px;
+}
+.clarFloat{
+	float:clear;
+}
+
+.float-right{
+  float:right;
+}
+
+.popup
+{
+	float:right;
+	background: white;
+	height: 40px;
+}
+
+.popup:hover	{
+		
+         background: lightgreen;
+    }
+
+img.content {
+    max-width: 30%;
+    max-height: 30%;
+}
+
+a{
+
+margin-right: 50px;
+
+}

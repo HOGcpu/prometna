@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="stilP.css" /> 
+		<title>Prijava v aplikacijo: Statistika SLO prometa</title>
+	</head>
+	<head>
+		<meta charset="UTF-8">
+		<title>Prijava</title>
+		<script src="pik.js"></script>
+		<script type="text/javascript">
+			function prijava() {
+				var params = "upime=" + document.getElementById("upime").value + "&geslo=" + document.getElementById("geslo").value;
+				
+				var xhr= new XMLHttpRequest();
+				xhr.open("POST", "login.php", true); // vpisemo URL mesta za avtentikacijo v API-ju zaledja
+				xhr.setRequestHeader("Accept", "application/json");
+				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded; charset=UTF-8');
+				console.log(params);
+				xhr.onreadystatechange = function () {
+				   if (xhr.readyState === 4) {
+					  if(xhr.status === 200) {
+						  var response = JSON.parse(xhr.responseText);
+						  setCookie("token", response["token"], 1);
+						  //window.localStorage.setItem("access_token", response["token"]);	//zeton shranimo v lokalno shrambo
+						  oPrijavi();	// posodobimo spletno stran
+						}
+						else{
+							alert("Prijava ni uspela!");
+						}
+				   }};
+				   
+				xhr.send(params);
+			}
+			
+			// Funkcija je namenjena prilagoditvi vsebine strani glede na to, ali je uporabnik ze prijavljen ali se ne.
+			function oPrijavi() {
+				var zeton = getCookie('token');
+				if(zeton != null && zeton != ""){
+					document.getElementById("zacStran").innerHTML = "Prijava je uspela. Nadaljujte na začetno stran aplikacije";
+					document.getElementById("prijava").style.display = "none";
+					document.getElementById("odjava").innerHTML = "Odjava iz aplikacije";
+					document.getElementById("opTekst").style.display = "none";
+				}
+				else{
+					
+					document.getElementById("prijava").style.display = "block";
+				}
+			}
+			
+			function oOdjavi() {
+				setCookie('token', '', -1)
+				window.localStorage.removeItem('access_token');
+			}
+		</script>
+	</head>
+	<body onload="oPrijavi()">
+		<form id="prijava" onsubmit="prijava(); return false" align="center">
+			Uporabnik:
+			<input type="text" id="upime" value="" required/>
+			Geslo:
+			<input type="password" id="geslo" value="" required/>
+			<input type="submit" value="Prijava"/>
+		</form>
+		<center><strong><a href="Meni.html" id="zacStran"></a></strong></center>
+		<hr>
+		<center><img src="openingImage.png" alt="rs" width="500" height="333"></center>
+		<center><strong><p id = "opTekst"> Prijava v aplikacijo </p></strong></center>
+		<center><strong><a href="login.html" onclick = "oOdjavi()" id="odjava"></a></strong></center>
+	</body>
+</html>
